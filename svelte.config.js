@@ -8,7 +8,6 @@ import a11yEmoji from "@fec/remark-a11y-emoji";
 
 import slug from "rehype-slug";
 import github from "remark-github";
-import { componentExample } from "mdsvex-component-example";
 import sveld from "vite-plugin-sveld";
 
 import { mdsvex } from "mdsvex";
@@ -19,11 +18,9 @@ const config = {
 	preprocess: [
 		mdsvex({
 			extensions: [".svx", ".md"],
-			layout: {
-				example: "/src/site/lib/Example/Example.svelte"
-			},
 			remarkPlugins: [
-				github, a11yEmoji, componentExample
+				github,
+				a11yEmoji,
 			],
 			rehypePlugins: [slug]
 		}),
@@ -35,14 +32,14 @@ const config = {
 	],
 	kit: {
 		adapter: vercel(),
-		vite: {
-			plugins: [sveld()],
-			resolve: {
-				extensions: [".mjs", ".js", ".ts", ".jsx", ".tsx", ".json", "svg"],
-				alias: {
-					$site: path.resolve("src/site"),
-					"fluent-svelte": path.resolve("src/lib")
-				}
+	},
+	vite: {
+		plugins: [sveld()],
+		resolve: {
+			extensions: [".mjs", ".js", ".ts", ".jsx", ".tsx", ".json", "svg"],
+			alias: {
+				$site: path.resolve("src/site"),
+				"fluent-svelte": path.resolve("src/lib")
 			}
 		}
 	}

@@ -2,7 +2,15 @@
 	"extends": "./.svelte-kit/tsconfig.json",
 	"compilerOptions": {
 		"baseUrl": ".",
+		// The following options are deprecated as of TypeScript 5.0
+		// and are replaced by `verbatimModuleSyntax`.
+		// See: https://www.typescriptlang.org/tsconfig#verbatimModuleSyntax
+		"importsNotUsedAsValues": "remove",
+		"preserveValueImports": false,
+		"verbatimModuleSyntax": true,
 		"paths": {
+			"$lib": ["src/lib"],
+			"$lib/*": ["src/lib/*"],
 			"fluent-svelte": ["src/lib"],
 			"fluent-svelte/*": ["src/lib/*"],
 			"$site": ["src/site"],
