@@ -4,13 +4,11 @@ import vercel from "@sveltejs/adapter-vercel";
 import cssnano from "cssnano";
 import autoprefixer from "autoprefixer";
 import prefixer from "postcss-variables-prefixer";
-
 import a11yEmoji from "@fec/remark-a11y-emoji";
+
 import slug from "rehype-slug";
 import github from "remark-github";
-import examples from "mdsvexamples";
-import examplesVite from "mdsvexamples/vite";
-
+import { componentExample } from "mdsvex-component-example";
 import sveld from "vite-plugin-sveld";
 
 import { mdsvex } from "mdsvex";
@@ -21,15 +19,11 @@ const config = {
 	preprocess: [
 		mdsvex({
 			extensions: [".svx", ".md"],
+			layout: {
+				example: "/src/site/lib/Example/Example.svelte"
+			},
 			remarkPlugins: [
-				github,
-				a11yEmoji,
-				[
-					examples,
-					{
-						ExampleComponent: "/src/site/lib/Example/Example.svelte"
-					}
-				]
+				github, a11yEmoji, componentExample
 			],
 			rehypePlugins: [slug]
 		}),
@@ -42,7 +36,7 @@ const config = {
 	kit: {
 		adapter: vercel(),
 		vite: {
-			plugins: [sveld(), examplesVite],
+			plugins: [sveld()],
 			resolve: {
 				extensions: [".mjs", ".js", ".ts", ".jsx", ".tsx", ".json", "svg"],
 				alias: {
